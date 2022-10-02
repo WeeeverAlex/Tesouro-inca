@@ -78,7 +78,7 @@ def explorar_ou_nao():
     else:
         return print('Você não explorou, e ficou no acampamento')
 
-#Função: decidir se quer continuar ou não
+#Função: decidir se quer continuar ou não (Não utilizei!)
 def continuar_ou_nao_jogador1():
     while True:
         continuar = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
