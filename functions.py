@@ -43,16 +43,15 @@ def valor_tesouro():
 #Este valor deve ser dividido igualmente entre os jogadores 
 # Se não for possível dividir igualmente, os tesouros que sobrarem devem ficar no caminho.
 
-def dividir_tesouro(jogadores, tesouro):
-    tesouro_sobrou = 0
-    if tesouro % jogadores == 0:
-        tesouro = tesouro / jogadores
-        return tesouro
+def dividir_tesouro(jogadores, tesouros):
+    if tesouros %  jogadores == 0:
+        tesouros = tesouros // jogadores
+        return tesouros
+
     else:
-        if tesouro % jogadores != 0:
-            tesouro_sobrou = tesouro % jogadores
-            tesouro = tesouro // jogadores
-            return tesouro, tesouro_sobrou
+        if tesouros % jogadores != 0:
+            tesouros = tesouros // jogadores
+            return tesouros
     
 
 #Função: perigo
@@ -110,7 +109,9 @@ def continuar_ou_nao_jogador1():
                 else:
                     return print('Jogador 1: Você não continuou e voltou para o acampamento')    
         else:
-            return print('Jogador 1: Você não continuou e voltou para o acampamento')
+            print('Jogador 1: Você não continuou e voltou para o acampamento.')
+            print('Jogador 1: Você não encontrou nenhum tesouro.')
+            return print('A rodada acabou!')
 
 def continuar_ou_nao_jogador2():
         continuar1 = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
@@ -146,7 +147,8 @@ def continuar_ou_nao_jogador2():
                         tesouro2 = print(f'Jogador 2: Você pegou {dividir_tesouro(2, valor):.0f} tesouros')
                         return valor, tesouro1, tesouro2
                     else:
-                        return print('Jogador: Você não continuou e voltou para o acampamento') 
+                        print('Jogador: Você não continuou e voltou para o acampamento')
+                        return print('A rodada acabou!')
             
         elif continuar1 == 'S'and continuar2 == 'N':
             print('Jogador 1: Continuando a explorar...')
@@ -174,7 +176,10 @@ def continuar_ou_nao_jogador2():
                         tesouro = print(f'Jogador 1: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
                         return valor, tesouro
                 else:
-                    return print('Jogador 1: Você não continuou e voltou para o acampamento')   
+                    print('Jogador 1: Você não continuou e voltou para o acampamento.')
+                    print('Jogador 1: Você não encontrou nenhum tesouro.')
+                    return print('A rodada acabou!')
+
 
         elif continuar1 == 'N' and continuar2 == 'S':
             print('Jogador 1: Você não continuou e voltou para o acampamento')
@@ -202,11 +207,14 @@ def continuar_ou_nao_jogador2():
                         tesouro = print(f'Jogador 2: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
                         return valor, tesouro
                 else:
-                    return print('Jogador 2: Você não continuou e voltou para o acampamento')
+                    print('Jogador 2: Você não continuou e voltou para o acampamento')
+                    return print('A rodada acabou!')
 
         elif continuar1 == 'N' and continuar2 == 'N':
-            return print('Jogadores 1 e 2: Vocês não continuaram e voltaram para o acampamento') 
+            print('Jogadores 1 e 2: Vocês não continuaram e voltaram para o acampamento') 
+            return print('A rodada acabou!')
 
         else:
-            return print('Jogador: Você não continuou e voltou para o acampamento')
+            print('Jogador: Você não continuou e voltou para o acampamento')
+            return print('A rodada acabou!')
 
