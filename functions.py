@@ -1,5 +1,4 @@
 from random import *
-from re import A 
 import sys
 import time
 
@@ -15,25 +14,36 @@ def print_slow(str):
 def tesouro_ou_perigo():
     sorteio = randint(1,2)
     if sorteio == 1:
-        tesouro = print('Enquanto o grupo estava na caverna descobriram um tesouro')
-        return tesouro
+        return 'Enquanto o grupo estava na caverna descobriram um tesouro'
+    elif sorteio == 2:
+        return 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.'
     else:
-        perigo = print('Enquanto o grupo estava na caverna encontraram um perigo')
-        return perigo
+        pass
+
+#Função: Perigo a segunda vez
+def perigo_segunda_vez():
+    perigo = tesouro_ou_perigo()
+    if perigo == 'perigo':
+        perigo = tesouro_ou_perigo()
+        if perigo == 'perigo':
+            return print('Você foi preso na caverna')
+        else:
+            pass
+    
+
 
 #Função: valor do tesouro
 def valor_tesouro():
     valor = randint(1,15)
-    print(valor)
     return valor
+
 
 
 #Função: dividir tesouro entre jogadores
 #Este valor deve ser dividido igualmente entre os jogadores 
 # Se não for possível dividir igualmente, os tesouros que sobrarem devem ficar no caminho.
 
-def dividir_tesouro(jogadores):
-    tesouro = valor_tesouro()
+def dividir_tesouro(jogadores, tesouro):
     tesouro_sobrou = 0
     if tesouro % jogadores == 0:
         tesouro = tesouro / jogadores
@@ -43,8 +53,6 @@ def dividir_tesouro(jogadores):
             tesouro_sobrou = tesouro % jogadores
             tesouro = tesouro // jogadores
             return tesouro, tesouro_sobrou
-
-
     
 
 #Função: perigo
@@ -72,11 +80,133 @@ def explorar_ou_nao():
         return print('Você não explorou, e ficou no acampamento')
 
 #Função: decidir se quer continuar ou não
-def continuar_ou_nao():
-    continuar = input('Deseja continuar explorando a caverna?(s/n) ').upper()
-    if continuar == 'S':
-        return print('Continuando a explorar...')
-    else:
-        return print('Você não continuou e voltou para o acampamento')
+def continuar_ou_nao_jogador1():
+    while True:
+        continuar = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
+        if continuar == 'S':
+            print('Jogador 1: Continuando a explorar...')
+            tesouro_perigo = tesouro_ou_perigo()
+            if tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                print(tesouro_perigo)
+                valor = valor_tesouro()
+                print(f'Jogador 1: Você encontrou {valor} tesouros')
+                tesouro = print(f'Jogador 1: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
+                return valor, tesouro
+            elif tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                print(tesouro_perigo)
+                continuar = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
+                if continuar == 'S':
+                    print('Jogador 1: Continuando a explorar...')
+                    tesouro_perigo = tesouro_ou_perigo()
+                    if tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                        print('Enquanto o grupo estava na caverna aconteceu um segundo deslizamento de pedras. E vocês ficaram presos na caverna')
+                        return print('Jogador 1: Você foi preso na caverna e perdeu todos os seus tesouros')
+                    elif tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                        print(tesouro_perigo)
+                        valor = valor_tesouro()
+                        print(f'Jogador 1: Você encontrou {valor} tesouros')
+                        tesouro = print(f'Jogador 1: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
+                        return valor, tesouro
+                else:
+                    return print('Jogador 1: Você não continuou e voltou para o acampamento')    
+        else:
+            return print('Jogador 1: Você não continuou e voltou para o acampamento')
 
+def continuar_ou_nao_jogador2():
+        continuar1 = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
+        continuar2 = input('Jogador 2: Deseja continuar explorando a caverna?(s/n) ').upper()
+        if continuar1 == 'S' and continuar2 == 'S':
+            print('Jogador 1: Continuando a explorar...')
+            print('Jogador 2: Continuando a explorar...')
+            tesouro_perigo = tesouro_ou_perigo()
+            if tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                print(tesouro_perigo)
+                valor = valor_tesouro()
+                print(f'Jogadores 1 e 2: Vocês encontraram {valor} tesouros')
+                tesouro1 = print(f'Jogadores 1: Você pegou {dividir_tesouro(2, valor)} tesouros')
+                tesouro2 = print(f'Jogador 2: Você pegou {dividir_tesouro(2, valor)} tesouros')
+                return valor, tesouro1, tesouro2
+            elif tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                print(tesouro_perigo)
+                continuar1 = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
+                continuar2 = input('Jogador 2: Deseja continuar explorando a caverna?(s/n) ').upper()
+                if continuar1 == 'S' and continuar2 == 'S':
+                    print('Jogador 1: Continuando a explorar...')
+                    print('Jogador 2: Continuando a explorar...')
+                    tesouro_perigo = tesouro_ou_perigo()
+                    if tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                        print('Enquanto o grupo estava na caverna aconteceu um segundo deslizamento de pedras. E vocês ficaram presos na caverna')
+                        return print('Jogadores 1 e 2: Vocês foram presos na caverna e perderam todos os seus tesouros')
+                    elif tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                        print(tesouro_perigo)
+                        valor = valor_tesouro()
+                        valor = valor_tesouro()
+                        print(f'Jogadores 1 e 2: Vocês encontraram {valor} tesouros')
+                        tesouro1 = print(f'Jogadores 1: Você pegou {dividir_tesouro(2, valor):.0f} tesouros')
+                        tesouro2 = print(f'Jogador 2: Você pegou {dividir_tesouro(2, valor):.0f} tesouros')
+                        return valor, tesouro1, tesouro2
+                    else:
+                        return print('Jogador: Você não continuou e voltou para o acampamento') 
             
+        elif continuar1 == 'S'and continuar2 == 'N':
+            print('Jogador 1: Continuando a explorar...')
+            print('Jogador 2: Você não continuou e voltou para o acampamento')
+            tesouro_perigo = tesouro_ou_perigo()
+            if tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                print(tesouro_perigo)
+                valor = valor_tesouro()
+                print(f'Jogador 1: Você encontrou {valor} tesouros')
+                tesouro = print(f'Jogador 1: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
+                return valor, tesouro
+            elif tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                print(tesouro_perigo)
+                continuar = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
+                if continuar == 'S':
+                    print('Jogador 1: Continuando a explorar...')
+                    tesouro_perigo = tesouro_ou_perigo()
+                    if tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                        print('Enquanto o grupo estava na caverna aconteceu um segundo deslizamento de pedras. E vocês ficaram presos na caverna')
+                        return print('Jogador 1: Você foi preso na caverna e perdeu todos os seus tesouros')
+                    elif tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                        print(tesouro_perigo)
+                        valor = valor_tesouro()
+                        print(f'Jogador 1: Você encontrou {valor} tesouros')
+                        tesouro = print(f'Jogador 1: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
+                        return valor, tesouro
+                else:
+                    return print('Jogador 1: Você não continuou e voltou para o acampamento')   
+
+        elif continuar1 == 'N' and continuar2 == 'S':
+            print('Jogador 1: Você não continuou e voltou para o acampamento')
+            print('Jogador 2: Continuando a explorar...')
+            tesouro_perigo = tesouro_ou_perigo()
+            if tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                print(tesouro_perigo)
+                valor = valor_tesouro()
+                print(f'Jogador 2: Você encontrou {valor} tesouros')
+                tesouro = print(f'Jogador 2: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
+                return valor, tesouro
+            elif tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                print(tesouro_perigo)
+                continuar = input('Jogador 2: Deseja continuar explorando a caverna?(s/n) ').upper()
+                if continuar == 'S':
+                    print('Jogador 2: Continuando a explorar...')
+                    tesouro_perigo = tesouro_ou_perigo()
+                    if tesouro_perigo == 'Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.':
+                        print('Enquanto o grupo estava na caverna aconteceu um segundo deslizamento de pedras. E vocês ficaram presos na caverna')
+                        return print('Jogador 2: Você foi preso na caverna e perdeu todos os seus tesouros')
+                    elif tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
+                        print(tesouro_perigo)
+                        valor = valor_tesouro()
+                        print(f'Jogador 2: Você encontrou {valor} tesouros')
+                        tesouro = print(f'Jogador 2: Você pegou {dividir_tesouro(1, valor):.0f} tesouros')
+                        return valor, tesouro
+                else:
+                    return print('Jogador 2: Você não continuou e voltou para o acampamento')
+
+        elif continuar1 == 'N' and continuar2 == 'N':
+            return print('Jogadores 1 e 2: Vocês não continuaram e voltaram para o acampamento') 
+
+        else:
+            return print('Jogador: Você não continuou e voltou para o acampamento')
+
