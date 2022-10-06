@@ -1,4 +1,3 @@
-from numpy import true_divide
 from functions import *
 import sys
 import time
@@ -95,6 +94,7 @@ if começar == 'C':
     print()
     print()        
 
+
 while jogo:
     print(Fore.RED + "Iniciando Rodada"+ Style.RESET_ALL)
     continuar1 = input('Jogador 1: Deseja continuar explorando a caverna?(s/n) ').upper()
@@ -104,6 +104,7 @@ while jogo:
         print('Jogador 2: Continuando a explorar...')
         tesouro_perigo = tesouro_ou_perigo()
 
+        
         if tesouro_perigo == 'Enquanto o grupo estava na caverna descobriram um tesouro':
             print(tesouro_perigo)
             valor = valor_tesouro()
@@ -463,10 +464,3 @@ while jogo:
     print(f'Rodada {rodadas}' +Style.RESET_ALL )
 
     jogo = True
-
-
-    
-
-
-    
-    
