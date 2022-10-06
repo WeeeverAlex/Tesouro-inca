@@ -76,18 +76,22 @@ if começar == 'C':
     print_slow('                  //=========\\   ' + Style.RESET_ALL)
     print()
     print()
-    print_slow(Fore.LIGHTRED_EX + 'Seja bem vindo ao Templo Maia, aqui você irá encontrar tesouros valiosos, mas tome cuidado, pois a caverna é perigosa!')
+    print_slow(Fore.BLUE + 'Seja bem vindo ao Templo Maia, aqui você irá encontrar tesouros valiosos, mas tome cuidado, pois a caverna é perigosa!')
     print()
     print()
     print_slow('Seu objetivo é conseguir o maior número de tesouros possíveis e voltar para o acampamento com vida!')
     print()
-    print('Se ocorrer um deslizamento de pedras 2 vezes você perderá todo seus tesouros e rodada terminará!')
     print()
-    print('A rodada, também termina quando todos os jogadores voltam para o acampamento')
+    print_slow('Se ocorrer um deslizamento de pedras 2 vezes você perderá todo seus tesouros e rodada terminará!')
+    print()
+    print()
+    print_slow('A rodada, também termina quando todos os jogadores voltam para o acampamento')
+    print()
     print()
     print_slow('Boa sorte!'+ Style.RESET_ALL)
     print()
-    print()     
+    print()
+   
 
 
 while jogo:
@@ -145,6 +149,17 @@ while jogo:
                     tesouro_jogador2 = 0
                     print('Vocês foram presos na caverna')
                     print()
+                    if tesouro_jogador1 > tesouro_jogador2:
+                        print('Jogador 1 venceu a rodada!')
+                        print(f'Tesouros do Jogador1: {tesouro_jogador1}')
+                        print()
+                    elif tesouro_jogador1 < tesouro_jogador2:
+                        print(f'Tesouros do Jogador2: {tesouro_jogador1}')
+                        print('Jogador 2 venceu a rodada!')    
+                        print()
+                    else:
+                        print(Fore.BLUE+ 'Empate!' + Style.RESET_ALL)
+                        print()
                     rodada = False
                     rodadas += 1
 
