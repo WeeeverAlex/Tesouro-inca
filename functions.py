@@ -17,7 +17,7 @@ def tesouro_ou_perigo():
         print('Enquanto o grupo estava na caverna descobriram um tesouro')
         return 1
     elif sorteio == 2:
-        print('Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras. Se ocorrer denovo, vocês ficarão presos na caverna.')
+        print('Enquanto o grupo estava na caverna aconteceu um deslizamento de pedras.')
         return 2
     
 
