@@ -1,1 +1,1 @@
-# Tesouro-inca
+Projeto jogo Tesouro Inca (no terminal)
